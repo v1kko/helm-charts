@@ -85,6 +85,9 @@
           readOnly: {{ $val.readOnly | default false }}
   {{- end}}
   {{- end}}
+  {{- with .Values.ftsRenewal.additionalMounts}}
+{{ toYaml . | indent 8 }}
+  {{- end}}
       env:
         {{- range $key1, $val1 := .Values.optional_config }}
         - name: {{ $key1 | upper }}
