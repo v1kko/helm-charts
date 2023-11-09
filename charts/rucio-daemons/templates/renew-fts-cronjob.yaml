@@ -45,7 +45,7 @@
   {{- end}}
   {{- end}}
   {{- with .Values.ftsRenewal.additionalVolumes}}
-{{ toYaml . | indent 6 }}
+{{ toYaml . | indent 2 }}
   {{- end}}
   containers:
     - name: renew-fts-cron
