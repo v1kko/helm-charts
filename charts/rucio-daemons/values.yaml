@@ -444,6 +444,17 @@ ftsRenewal:
     #     secretKeyRef:
     #       name:
     #       key:
+  additionalMounts: []
+    # - name: fts-config
+    #   mountPath: /etc/vomses/km3net.org-voms02.scope.unina.it
+    #   subPath: km3net.org-voms02.scope.unina.it
+    # - name: fts-config
+    #   mountPath: /etc/vomdir/voms02.scope.unina.it.lsc
+    #   subPath: voms02.scope.unina.it.lsc
+  additionalVolumes: []
+    # - name: fts-config
+    #  configMap:
+    #    name: fts-config
   resources:
     limits:
       cpu: 500m

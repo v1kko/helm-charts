@@ -44,6 +44,9 @@
       path: {{ $val.hostPath }}
   {{- end}}
   {{- end}}
+  {{- with .Values.ftsRenewal.additionalVolumes}}
+{{ toYaml . | indent 2 }}
+  {{- end}}
   containers:
     - name: renew-fts-cron
       image: "{{ .Values.ftsRenewal.image.repository }}:{{ .Values.ftsRenewal.image.tag }}"
@@ -84,6 +87,9 @@
           mountPath: {{ $val.mountPath }}
           readOnly: {{ $val.readOnly | default false }}
   {{- end}}
+  {{- end}}
+  {{- with .Values.ftsRenewal.additionalMounts}}
+{{ toYaml . | indent 8 }}
   {{- end}}
       env:
         {{- range $key1, $val1 := .Values.optional_config }}
