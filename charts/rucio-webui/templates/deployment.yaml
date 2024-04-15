@@ -50,8 +50,7 @@ spec:
           secretName: {{ template "rucio.fullname" . }}.config.yaml
       - name: httpdlog
         emptyDir: {}
-      - name: webui-log
-        emptyDir: {}
+      {{- if .Values.useDeprecatedImplicitSecrets }}
       {{- if eq .Values.useSSL true }}
       - name: hostcert
         secret:
@@ -62,6 +61,7 @@ spec:
       - name: cafile
         secret:
           secretName: {{ .Release.Name }}-cafile
+      {{- end }}
       {{- end }}
       {{- range $key, $val := .Values.secretMounts }}
       - name: {{ coalesce $val.volumeName $val.secretName $val.secretFullName }}
@@ -111,6 +111,7 @@ spec:
             - name: webui-log
               mountPath: /root/.pm2/logs/
             {{- end }}
+            {{- if .Values.useDeprecatedImplicitSecrets }}
             {{- if .Values.useSSL }}
             - name: hostcert
               mountPath: /etc/grid-security/hostcert.pem
@@ -121,6 +122,7 @@ spec:
             - name: cafile
               mountPath: /etc/grid-security/ca.pem
               subPath: ca.pem
+            {{- end}}
             {{- end}}
             {{- range $key, $val := .Values.secretMounts }}
             - name: {{ coalesce $val.volumeName $val.secretName $val.secretFullName }}
